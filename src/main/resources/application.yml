@@ -10,27 +10,18 @@ spring:
   application:
     name: eureka-server
 ############################################################################################
+########################################## 认证 ##############################################
+############################################################################################
+  security:
+    user:
+      name: admin
+      password: 123456
+############################################################################################
 ######################################## eureka ############################################
 ############################################################################################
 eureka:
-  server:
-    enable-self-preservation: false
-    evictionIntervalTimerInMs: 20000
-  instance:
-    hostname: localhost
-    appname: ${spring.application.name}
-    preferIpAddress: true
   client:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-############################################################################################
-########################################## 认证 ##############################################
-############################################################################################
-security:
-  basic:
-    enabled: true
-  user:
-    name: admin
-    password: 123456
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:${server.port}/eureka/
